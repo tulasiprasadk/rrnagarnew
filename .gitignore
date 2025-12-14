@@ -21,6 +21,9 @@ logs/
 .env.*
 **/.env
 **/.env.*
+# Exception: allow .env.example files (documentation only)
+!.env.example
+!**/.env.example
 
 # Database / uploads / cache
 *.sqlite
