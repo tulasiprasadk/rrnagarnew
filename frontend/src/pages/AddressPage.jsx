@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "../api/client";
 
 export default function AddressPage() {
   const [list, setList] = useState([]);
@@ -13,7 +14,7 @@ export default function AddressPage() {
       setLoading(true);
       setError("");
       console.log("Loading addresses...");
-      const res = await axios.get("/api/customer/address");
+      const res = await axios.get(`${API_BASE}/customer/address`);
       console.log("Addresses loaded from API:", res.data);
       setList(res.data);
     } catch (err) {
@@ -36,12 +37,12 @@ export default function AddressPage() {
 
   const deleteAddress = async (id) => {
     if (!window.confirm("Delete this address?")) return;
-    await axios.delete(`/api/customer/address/${id}`);
+    await axios.delete(`${API_BASE}/customer/address/${id}`);
     load();
   };
 
   const makeDefault = async (id) => {
-    await axios.put(`/api/customer/address/${id}/default`);
+    await axios.put(`${API_BASE}/customer/address/${id}/default`);
     load();
   };
 

@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE } from "../api/client";
 import GoogleAddressInput from "../components/GoogleAddressInput"; // <-- IMPORTANT
 
 export default function AddressManagerPage() {
@@ -70,12 +71,12 @@ export default function AddressManagerPage() {
       if (address.id) {
         // Updating existing
         console.log("Updating address with ID:", address.id, "Data:", form);
-        result = await axios.put(`/api/customer/address/${address.id}`, form);
+        result = await axios.put(`${API_BASE}/customer/address/${address.id}`, form);
         newAddressId = address.id;
       } else {
         // Creating new
         console.log("Creating new address with data:", form);
-        result = await axios.post(`/api/customer/address`, form);
+        result = await axios.post(`${API_BASE}/customer/address`, form);
         console.log("API response:", result.data);
         newAddressId = result.data?.address?.id;
         console.log("New address ID from API:", newAddressId);
@@ -84,7 +85,7 @@ export default function AddressManagerPage() {
       // Set default if checked
       if (form.isDefault && newAddressId) {
         try {
-          await axios.put(`/api/customer/address/${newAddressId}/default`);
+          await axios.put(`${API_BASE}/customer/address/${newAddressId}/default`);
         } catch (e) {
           console.warn("Could not set default:", e);
         }

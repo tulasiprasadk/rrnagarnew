@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+import { API_BASE } from "../api/client";
 
 export default function CustomerVerify() {
   const navigate = useNavigate();
@@ -20,11 +21,11 @@ export default function CustomerVerify() {
 
   const handleVerify = async () => {
     try {
-      const res = await axios.post("/api/auth/verify-email-otp", { email, otp }, { withCredentials: true });
+      const res = await axios.post(`${API_BASE}/auth/verify-email-otp`, { email, otp }, { withCredentials: true });
 
       // Check if user has saved addresses
       try {
-        const addressRes = await axios.get("/api/customer/address", { withCredentials: true });
+        const addressRes = await axios.get(`${API_BASE}/customer/address`, { withCredentials: true });
         
         if (addressRes.data && addressRes.data.length > 0) {
           // User has addresses, redirect to dashboard
@@ -57,7 +58,7 @@ export default function CustomerVerify() {
 
       console.log("Submitting address:", address);
       
-      const response = await axios.post("/api/customer/address", {
+      const response = await axios.post(`${API_BASE}/customer/address`, {
         ...address,
       }, { withCredentials: true });
 

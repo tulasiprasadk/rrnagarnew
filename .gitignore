@@ -24,6 +24,8 @@ logs/
 # Exception: allow .env.example files (documentation only)
 !.env.example
 !**/.env.example
+frontend/.env
+backend/.env
 
 # Database / uploads / cache
 *.sqlite
@@ -44,3 +46,4 @@ coverage/
 
 # Generated artifacts
 *.tgz
+frontend/public/cache-bust.txt

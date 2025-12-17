@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { API_BASE } from "../api/client";
 import "./Header.css";
 
 // ✅ IMPORT LOGO (Vite will resolve correct path)
@@ -24,12 +25,7 @@ export default function Header() {
     let isMounted = true;
 
     axios
-  .get(
-    import.meta.env.DEV
-      ? `${import.meta.env.VITE_API_URL}/api/auth/me`
-      : "/api/auth/me",
-    { withCredentials: true }
-  )
+      .get(`${API_BASE}/auth/me`, { withCredentials: true })
 
       .then((res) => {
         if (!isMounted) return;
@@ -60,7 +56,7 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
+      await axios.post(`${API_BASE}/auth/logout`, {}, { withCredentials: true });
       setUser(null);
       navigate("/");
     } catch (err) {

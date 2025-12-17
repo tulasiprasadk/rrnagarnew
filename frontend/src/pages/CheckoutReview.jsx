@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE } from "../api/client";
 
 export default function CheckoutReview() {
   const location = useLocation();
@@ -20,7 +21,7 @@ export default function CheckoutReview() {
         
         // Load address
         try {
-          const res = await axios.get("/api/customer/address");
+          const res = await axios.get(`${API_BASE}/customer/address`);
           const list = res.data;
           const def = list.find((a) => a.isDefault) || null;
           setDefaultAddress(def);
@@ -74,7 +75,7 @@ export default function CheckoutReview() {
       };
 
       console.log("Creating order:", order);
-      const res = await axios.post("/api/orders/create", order);
+      const res = await axios.post(`${API_BASE}/orders/create`, order);
       
       console.log("Order created:", res.data);
       

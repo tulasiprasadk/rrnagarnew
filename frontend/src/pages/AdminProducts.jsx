@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAdminAuth } from "../../../context/AdminAuthContext";
+import { API_BASE } from "../api/client";
 
 const AdminProductsList = () => {
   const { adminToken } = useAdminAuth();
   const [products, setProducts] = useState([]);
 
   const loadProducts = () => {
-    fetch("/api/admin/products", {
+    fetch(`${API_BASE}/admin/products`, {
       headers: { Authorization: `Bearer ${adminToken}` }
     })
       .then((res) => res.json())
@@ -21,7 +22,7 @@ const AdminProductsList = () => {
   const deleteProduct = async (id) => {
     if (!window.confirm("Delete this product?")) return;
 
-    const res = await fetch(`/api/admin/products/${id}`, {
+    const res = await fetch(`${API_BASE}/admin/products/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${adminToken}` }
     });

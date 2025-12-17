@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE } from "../api/client";
 
 /**
  * OTP confirmation page.
@@ -24,7 +25,7 @@ export default function OTPConfirm() {
     setMsg("");
     setLoading(true);
     try {
-      const res = await axios.post("/api/auth/verify-otp", { 
+      const res = await axios.post(`${API_BASE}/auth/verify-otp`, { 
         phone, 
         otp: code 
       });
