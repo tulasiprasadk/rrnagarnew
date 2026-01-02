@@ -1,0 +1,71 @@
+// frontend/src/pages/Login.jsx
+
+import { useState } from "react";
+import { API_BASE } from "../config/api";
+import { useNavigate } from "react-router-dom";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    if (!email) {
+      alert("Please enter an email address");
+      return;
+    }
+    // Go directly to verify page, which now logs in with just email
+    navigate("/verify", { state: { email } });
+  };
+
+  return (
+    <div style={{ padding: "30px" }}>
+      <h2>Login with Email</h2>
+
+      <input
+        type="email"
+        value={email}
+        placeholder="Enter email address"
+        onChange={(e) => setEmail(e.target.value)}
+        style={{
+          padding: "8px",
+          width: "250px",
+          marginTop: "10px",
+          display: "block",
+        }}
+      />
+
+      <button
+        onClick={handleLogin}
+        style={{
+          marginTop: "15px",
+          padding: "10px 20px",
+          background: "#007bff",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Login
+      </button>
+
+      <div style={{ marginTop: 30, textAlign: 'center' }}>
+        <a
+          href={`${API_BASE}/customers/auth/google`}
+          style={{
+            display: 'inline-block',
+            padding: '10px 20px',
+            background: '#db4437',
+            color: 'white',
+            borderRadius: '5px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+          }}
+        >
+          Login with Google
+        </a>
+      </div>
+    </div>
+  );
+}
